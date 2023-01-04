@@ -1,0 +1,80 @@
+//s7
+//csstack.h
+#include <stdio.h>
+#define MAX 10
+typedef struct
+{
+int data[MAX];
+int top;
+} STACK;
+void initstack(STACK *ps)
+{
+ps->top = -1;
+}
+void push(STACK *ps, int num)
+{
+ps->data[++ps->top] = num;
+}
+int pop(STACK *ps)
+{
+return (ps->data[ps->top--]);
+}
+int isempty(STACK *ps)
+{
+return (ps->top == -1);
+}
+int isfull(STACK *ps)
+{
+return (ps->top == MAX - 1);
+}
+int stacktop(STACK *ps)
+{
+return ps->data[ps->top];
+}
+
+
+//Palindrome.c
+#include<stdio.h>
+#include "csstack.h"
+int ispalindrome(char str[20])
+{
+int i;
+STACK s;
+initstack(&s);
+for(i=0; str[i]!='\0'; i++)
+push(&s, str[i]);
+//Pop stack characters and compare with string characters
+i=0;
+while(!isempty(&s))
+{
+if(str[i]!=pop(&s))
+return 0; //not palindrome
+i++;
+}
+return 1; //is palindrome
+}
+void main()
+{
+char str[20];
+printf("Enter the string: ");
+scanf("%s",str);
+int ans=ispalindrome(str);
+if (ans==0)
+printf("\nThe string %s is not a palindrome",str);
+else
+printf("\nThe string %s is a palindrome",str);
+}
+
+
+//cc filename.h
+//cc filename.c
+//  ./a.out
+
+
+//OUTPUT:
+//Enter the string: madam
+//The string madam is a palindrome
+//Enter the string: racecar
+//The string racecar is a palindrome
+// Enter the string: robotics
+//The string robotics is not a palindrome
